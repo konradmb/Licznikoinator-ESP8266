@@ -10,12 +10,12 @@ const char* password = STAPSK;
 
 ESP8266WebServer server(80);
 
-const int led = 13;
+const int led = 2;
 
 void handleRoot() {
-  digitalWrite(led, 1);
-  server.send(200, "text/plain", "hello from esp8266!");
   digitalWrite(led, 0);
+  server.send(200, "text/plain", "hello from esp8266!");
+  digitalWrite(led, 1);
 }
 
 void handleNotFound() {
@@ -32,12 +32,12 @@ void handleNotFound() {
     message += " " + server.argName(i) + ": " + server.arg(i) + "\n";
   }
   server.send(404, "text/plain", message);
-  digitalWrite(led, 0);
+  digitalWrite(led, 1);
 }
 
 void setup(void) {
   pinMode(led, OUTPUT);
-  digitalWrite(led, 0);
+  digitalWrite(led, 1);
   Serial.begin(115200);
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
