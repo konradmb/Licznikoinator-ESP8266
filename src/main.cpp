@@ -4,6 +4,7 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 #include "WiFiSettings.h"
+#include "MeterConnection.h"
 
 const char* ssid = STASSID;
 const char* password = STAPSK;
