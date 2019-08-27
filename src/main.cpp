@@ -86,6 +86,21 @@ void setup(void)
     server.send(200, "text/plain", "Blink");
   });
 
+  char *WiFiStatusLabel[] =
+      {"WL_IDLE_STATUS",
+       "WL_NO_SSID_AVAIL",
+       "WL_SCAN_COMPLETED",
+       "WL_CONNECTED",
+       "WL_CONNECT_FAILED",
+       "WL_CONNECTION_LOST",
+       "WL_DISCONNECTED"};
+
+  server.on("/info", [=]() {
+    String toSend = "WiFi.status(): ";
+    toSend += WiFiStatusLabel[WiFi.status()];
+    server.send(200, "text/plain", toSend);
+  });
+
   server.onNotFound(handleNotFound);
 
   server.begin();
@@ -96,4 +111,9 @@ void loop(void)
 {
   server.handleClient();
   MDNS.update();
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(500);
+    Serial.print(".");
+  }
 }
