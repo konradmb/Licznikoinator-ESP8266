@@ -17,7 +17,9 @@ String meterRead()
 
     SoftwareSerial swSerReadSlow(rxPin, txPin, true);
     swSerReadSlow.begin(300, SWSERIAL_7N1);
+    
     char readChar;
+    unsigned int startMs = millis();
     do
     {
         ESP.wdtFeed();
@@ -27,20 +29,22 @@ String meterRead()
             meterMessage += readChar;
             Serial.write(readChar);
         }
+        if (millis() - startMs >= 10000)
+        {
+            return "Error - timed out waiting for data";
+        }
     } while (readChar != (char)'\n');
     swSerReadSlow.end();
 
     swSerWrite.write(0x06); //ACK
     swSerWrite.write("020\r\n");
 
-
     swSerWrite.end();
 
     SoftwareSerial swSerReadFast(rxPin, txPin, true);
     swSerReadFast.begin(1200, SWSERIAL_7N1);
 
-    // delay(300); //needed by protocol
-
+    startMs = millis();
     do
     {
         ESP.wdtFeed();
@@ -50,6 +54,11 @@ String meterRead()
             meterMessage += readChar;
             Serial.write(readChar);
         }
+        if (millis() - startMs >= 20000)
+        {
+            return "Error - timed out waiting for data";
+        }
+
     } while (readChar != (char)0x03); //ETX
 
     meterMessage.remove(meterMessage.length() - 1);
