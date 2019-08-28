@@ -1,0 +1,6 @@
+[submodule "lib/ConfigurableSoftwareSerial"]
+	path = lib/ConfigurableSoftwareSerial
+	url = https://github.com/baggior/ConfigurableSoftwareSerial.git
+[submodule "lib/espsoftwareserial"]
+	path = lib/espsoftwareserial
+	url = https://github.com/plerup/espsoftwareserial.git
