@@ -17,7 +17,6 @@ void handleRoot()
 {
   digitalWrite(led, 0);
   String toSend = String("hello from esp8266! \n");
-  toSend.concat(meterRead());
   server.send(200, "text/plain", toSend);
   digitalWrite(led, 1);
 }
@@ -76,6 +75,13 @@ void setup(void)
   }
 
   server.on("/", handleRoot);
+
+  server.on("/read-meter", []() {
+    digitalWrite(led, 0);
+    String toSend = meterRead();
+    server.send(200, "text/plain", toSend);
+    digitalWrite(led, 1);
+  });
 
   server.on("/inline", []() {
     server.send(200, "text/plain", "this works as well");
