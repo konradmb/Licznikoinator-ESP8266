@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"terminal.integrated.env.linux": {
+			"PATH": "/home/konrad/.platformio/penv/bin:/home/konrad/.platformio/penv:/home/konrad/.nimble/bin:/home/konrad/.local/bin:/home/konrad/.nimble/bin:/home/konrad/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/konrad/.dotnet/tools:/home/konrad/.dotnet/tools",
+			"PLATFORMIO_CALLER": "vscode"
+		}
+	}
+}
